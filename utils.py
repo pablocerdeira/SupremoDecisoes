@@ -15,11 +15,11 @@ def md5(text):
 
 
 def rtf2txt(doc):
-    rtf = cStringIO.StringIO()
+    rtf = libs.cStringIO.StringIO()
     try:
         rtf.write(doc)
-        read = Rtf15Reader.read(rtf)
-        txt = PlaintextWriter.write(read).read()
+        read = libs.Rtf15Reader.read(rtf)
+        txt = libs.PlaintextWriter.write(read).read()
         txt = txt.replace("'","")
     except Exception:
         txt = ''
@@ -30,7 +30,7 @@ def rtf2txt(doc):
 
 def write2disk(name,content):
     try:
-        f = codecs.open(filesFolder+str(name), "w", encoding='utf8')
+        f = libs.codecs.open(st.exportFolder+str(name), "w", encoding='utf8')
         try:
             f.write(content)
         finally:
@@ -44,8 +44,8 @@ def createCorpora():
     global decsCorp
 
     print 'Reading files from disk'
-    root = filesFolder
-    decs = PlaintextCorpusReader(root, '.*\.txt')
+    root = st.exportFolder
+    decs = libs.PlaintextCorpusReader(root, '.*\.txt')
     print decs.fileids()
 
     print 'Creating a corpora'
