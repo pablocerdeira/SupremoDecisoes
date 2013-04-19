@@ -95,7 +95,7 @@ def addHashes(table,sourceColumn):
     cur.execute(sql)
     for row in rows:
         try:
-            sql = "update %s set hash_%s = '%s' where id = %s" % (table, hashlib.md5(row[sourceColumn]).hexdigest(),row['id'])
+            sql = "update %s set hash_%s = '%s' where id = %s" % (table, libs.hashlib.md5(row[sourceColumn]).hexdigest(),row['id'])
             cur.execute(sql)
         except Exception:
             print 'ERRO: ', row[sourceColumn]
