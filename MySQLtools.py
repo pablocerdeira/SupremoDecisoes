@@ -91,15 +91,14 @@ def addHashes(table,sourceColumn):
     global rows, totalRows
     
     if st.debug >= 1: print 'Adding %s hashes to table %s' % (sourceColumn,table)
-    sql = "alter table %s add column hash_%s varchar(50) after id" % (tableName,sourceColumn)
+    sql = "alter table %s add column hash_%s varchar(50) after id" % (table,sourceColumn)
     cur.execute(sql)
     for row in rows:
         try:
-            sql = "update %s set hash = '%s' where id = %s" % (tableName, hashlib.md5(row[sourceColumn]).hexdigest(),row['id'])
+            sql = "update %s set hash_%s = '%s' where id = %s" % (table, hashlib.md5(row[sourceColumn]).hexdigest(),row['id'])
             cur.execute(sql)
         except Exception:
             print 'ERRO: ', row[sourceColumn]
-            pass
     conn.commit()
 
 
@@ -125,7 +124,7 @@ def addPlain(table,sourceColumn,destColumn):
     for row in rows:
         percentage = str(float(row['id'])/totalRows*100)+'%'
         if st.debug >= 2: print 'Converting RTF to plain text (id): %s of %s (%s)' % (row['id'],totalRows,percentage)
-        sql = "update %s set %s = '%s ' where id = %s" % (tableName, destColumn, rtf2txt(row[sourceColumn]).replace("'",''),row['id'])
+        sql = "update %s set %s = '%s ' where id = %s" % (table, destColumn, rtf2txt(row[sourceColumn]).replace("'",''),row['id'])
         try:
             cur.execute(sql)
         except Exception:
@@ -136,7 +135,7 @@ def addPlain(table,sourceColumn,destColumn):
 
 def writeFiles():
     print 'Writing files to disk'
-    sql = "select id, num_processo, txt_text from %s where txt_text is not null %s" % (tableName, st.MySQLLimit)
+    sql = "select id, num_processo, txt_text from %s where txt_text is not null %s" % (table, st.MySQLLimit)
     cur.execute(sql)
     txts = cur.fetchall()
     i = 1

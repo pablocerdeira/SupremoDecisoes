@@ -75,6 +75,7 @@ def main():
     # Add hashes to ta_main
     if addHash == True:
         addHashes(st.ta_main,'txt_conteudo')
+        addIndex(st.ta_main,'hash_txt_conteudo')
     
     if convertRTF2text == True:
         addPlain(st.ta_main,'txt_conteudo','txt_text')
