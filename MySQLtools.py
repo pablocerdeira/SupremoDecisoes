@@ -79,7 +79,10 @@ def populateTableFrom(table,sourceTable):
     global cur, conn
     
     if st.debug >= 1: print 'Inserting data into table: %s' % table
-    sql = "insert into %s select * from %s %s" % (table, sourceTable, st.MySQLLimit)
+    sql = 'select * from %s where 1=0' % sourceTable
+    cur.execute(sql)
+    columns = [i[0] for i in cur.description]
+    sql = "insert into %s (%s) select * from %s %s" % (table, ', '.join(columns), sourceTable, st.MySQLLimit)
     cur.execute(sql)
 
 
