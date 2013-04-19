@@ -40,7 +40,6 @@ ta_main_idx =           ['seq_objeto_incidente_principal',
                          'tip_julgamento',
                          'nom_ministro',
                          'dat_sessao',
-                         'seq_objeto_incidente_principal',
                          'dat_criacao',
                          'dsc_tipo'
                          ]
