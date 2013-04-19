@@ -5,27 +5,6 @@ sys.setdefaultencoding('utf-8')
 
 import importLibraries
 
-# MySQL tools used by this software
-from MySQLtools import *
-# Functions by MySQLtools
-#  - connMySQL()
-#  - dropTable(table)
-#  - createTableFrom(table,sourceTable)
-#  - createTable(table,columns)
-#  - addPK(table)
-#  - addIndex(table,column)
-#  - populateTableFrom(table,sourceTable)
-#  - getAll(table,where)
-#  - addHashes(table,sourceColumn)
-#  - addPlain(table,sourceColumn,destColumn)
-
-
-## Global variables and objects
-# conn: MySQL connection
-# cur:  MySQL cursor
-# rows: MySQL resultset
-
-
 ########################
 ### PROGRAM SETTINGS ###
 ########################
@@ -85,6 +64,26 @@ convertRTF2text =   True
 ########################
 ##### END SETTINGS #####
 ########################
+
+# MySQL tools used by this software
+from MySQLtools import *
+# Functions by MySQLtools
+#  - connMySQL()
+#  - dropTable(table)
+#  - createTableFrom(table,sourceTable)
+#  - createTable(table,columns)
+#  - addPK(table)
+#  - addIndex(table,column)
+#  - populateTableFrom(table,sourceTable)
+#  - getAll(table,where)
+#  - addHashes(table,sourceColumn)
+#  - addPlain(table,sourceColumn,destColumn)
+
+
+## Global variables and objects
+# conn: MySQL connection
+# cur:  MySQL cursor
+# rows: MySQL resultset
 
 # Main function
 def main():
