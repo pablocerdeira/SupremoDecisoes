@@ -56,7 +56,7 @@ def createTable(table,columns):
     try:
         cur.execute(sql)
     except Exception:
-        print sql
+        print 'ERROR: ', sql
 
 
 def addPK(table):
