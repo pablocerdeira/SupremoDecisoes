@@ -39,7 +39,7 @@ ta_main_idx =           ['num_processo','ministro']
 # Table: Analysis Words All
 # Define table name, table columns and table indexes (idx)
 ta_words_all =          "ta_words_all"           
-ta_word_all_columns =   ['id int not null auto_increment',
+ta_words_all_columns =  ['id int not null auto_increment',
                          'id_monocratica int null',
                          'word varchar(255) null',
                          'word_count int null'

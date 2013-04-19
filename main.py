@@ -52,7 +52,7 @@ def main():
         addPK(st.ta_main)                                  # Add primary key to ta_main
     
         # Create ta_word_all
-        createTable(st.ta_word_all,st.ta_word_all_columns)
+        createTable(st.ta_words_all,st.ta_words_all_columns)
     
     if createIndex == True:
         
