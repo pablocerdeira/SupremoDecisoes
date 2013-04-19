@@ -6,7 +6,7 @@ sys.setdefaultencoding('utf-8')
 import importLibraries
 
 # MySQL tools used by this software
-import MySQLtools
+from MySQLtools import *
 # Functions by MySQLtools
 #  - connMySQL()
 #  - dropTable(table)
@@ -74,13 +74,13 @@ exporToDisk = False
 exportFolder = '/home/pablocerdeira/corpora/decisoes_supremo/'
 
 # Steps to run or ignore
-connectDB =         False
-dropTables =        False
-createTables =      False
-createIndex =       False
-populateTables =    False
-addHash =           False
-convertRTF2text =   False
+connectDB =         True
+dropTables =        True
+createTables =      True
+createIndex =       True
+populateTables =    True
+addHash =           True
+convertRTF2text =   True
 
 ########################
 ##### END SETTINGS #####
