@@ -5,6 +5,7 @@ sys.setdefaultencoding('utf-8')
 
 import libs
 import settings as st
+import utils as ut
 
 # MySQL connection
 def connMySQL():
@@ -121,7 +122,7 @@ def addPlain(table,sourceColumn,destColumn):
     for row in rows:
         percentage = str(float(row['id'])/totalRows*100)+'%'
         if st.debug >= 2: print 'Converting RTF to plain text (id): %s of %s (%s)' % (row['id'],totalRows,percentage)
-        sql = "update %s set %s = '%s ' where id = %s" % (table, destColumn, rtf2txt(row[sourceColumn]).replace("'",''),row['id'])
+        sql = "update %s set %s = '%s ' where id = %s" % (table, destColumn, ut.rtf2txt(row[sourceColumn]).replace("'",''),row['id'])
         try:
             cur.execute(sql)
         except Exception:
