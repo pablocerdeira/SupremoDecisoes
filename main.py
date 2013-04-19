@@ -4,7 +4,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 import libs
-import settings
+import settings as st
 
 # MySQL tools used by this software
 from MySQLtools import *
@@ -42,42 +42,42 @@ def main():
         connMySQL()                                     # Connect to MySQL
     
     if dropTables == True:
-        dropTable(ta_main)                              # Drop table ta_main
-        dropTable(ta_words_all)                         # Drop table ta_words_all
+        dropTable(st.ta_main)                              # Drop table ta_main
+        dropTable(st.ta_words_all)                         # Drop table ta_words_all
     
     if createTables == True:
         
         # Create ta_main table
-        createTableFrom(ta_main,ta_main_source)         # Create table ta_main based on monocraticas
-        addPK(ta_main)                                  # Add primary key to ta_main
+        createTableFrom(st.ta_main,st.ta_main_source)         # Create table ta_main based on monocraticas
+        addPK(st.ta_main)                                  # Add primary key to ta_main
     
         # Create ta_word_all
-        createTable(ta_word_all,ta_word_all_columns)
+        createTable(st.ta_word_all,st.ta_word_all_columns)
     
     if createIndex == True:
         
         # Index ta_main
-        for column in ta_main_idx:
-            addIndex(ta_main,column)                    # Indexing columns on ta_main
+        for column in st.ta_main_idx:
+            addIndex(st.ta_main,column)                    # Indexing columns on ta_main
 
         # Index ta_word_all
-        for column in ta_words_all_idx:
-            addIndex(ta_words_all,column)               # Indexing columns on ta_word_all
+        for column in st.ta_words_all_idx:
+            addIndex(st.ta_words_all,column)               # Indexing columns on ta_word_all
 
     if populateTables == True:
         
         # Populate ta_main
-        populateTableFrom(ta_main,ta_main_source)
+        populateTableFrom(st.ta_main,st.ta_main_source)
         
     # Get data from ta_main and save it to rows
-    getAll(ta_main,'where txt_conteudo is not null')
+    getAll(st.ta_main,'where txt_conteudo is not null')
 
     # Add hashes to ta_main
     if addHash == True:
-        addHashes(ta_main,'txt_conteudo')
+        addHashes(st.ta_main,'txt_conteudo')
     
     if convertRTF2text == True:
-        addPlain(ta_main,'txt_conteudo','txt_text')
+        addPlain(st.ta_main,'txt_conteudo','txt_text')
 
     #writeFiles()
     #createCorpora()

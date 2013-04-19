@@ -26,7 +26,7 @@ def connMySQL():
 def dropTable(table):
     global cur, conn, debug
     
-    if debug >= 1: print 'Dropping table: %s' % table
+    if settings.debug >= 1: print 'Dropping table: %s' % table
     sql = "DROP TABLE %s" % table
     try:
         cur.execute(sql)
