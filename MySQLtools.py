@@ -3,6 +3,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
+import libs
 import settings
 
 # MySQL connection
@@ -10,15 +11,15 @@ def connMySQL():
     global cur, conn, debug
 
     if settings.debug >= 1: print 'Connecting to MySQL'
-    conn = db.Connect(
-        host=MySQLhost,
-        user=MySQLusername,
-        passwd=MySQLpasswd,
-        db=MySQLdb,
-        cursorclass = db.cursors.DictCursor,
+    conn = libs.db.Connect(
+        host=settings.MySQLhost,
+        user=settings.MySQLusername,
+        passwd=settings.MySQLpasswd,
+        db=settings.MySQLdb,
+        cursorclass = libs.db.cursors.DictCursor,
         charset='utf8')
-    cur = conn.cursor()
-    if debug >= 1: print 'MySQL connection successful'
+    cur = libs.conn.cursor()
+    if settings.debug >= 1: print 'MySQL connection successful'
 
 
 # Procedural functions

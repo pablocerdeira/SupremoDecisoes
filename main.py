@@ -3,7 +3,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-import importLibraries
+import libs
 import settings
 
 # MySQL tools used by this software
