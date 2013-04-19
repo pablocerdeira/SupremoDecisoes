@@ -5,7 +5,7 @@ sys.setdefaultencoding('utf-8')
 
 # MySQL connection
 def connMySQL():
-    global cur, conn
+    global cur, conn, debug
 
     if debug >= 1: print 'Connecting to MySQL'
     conn = db.Connect(
@@ -21,6 +21,8 @@ def connMySQL():
 
 # Procedural functions
 def dropTable(table):
+    global cur, conn, debug
+    
     if debug >= 1: print 'Dropping table: %s' % table
     sql = "DROP TABLE %s" % table
     try:
@@ -30,6 +32,8 @@ def dropTable(table):
 
 
 def createTableFrom(table,sourceTable):
+    global cur, conn, debug
+    
     if debug >= 1: print 'Creating table: %s' % table
     sql = "create table %s select * from %s where 1=0 %s" % (table, sourceTable, MySQLLimit)
     cur.execute(sql)
@@ -40,6 +44,8 @@ def createTableFrom(table,sourceTable):
     
 
 def createTable(table,columns):
+    global cur, conn, debug
+    
     if debug >= 1: print 'Creating table: %s' % table
     sql = "create table %s (" % table
     sql = sql + ', '.join(columns)
@@ -48,24 +54,31 @@ def createTable(table,columns):
 
 
 def addPK(table):
+    global cur, conn, debug
+    
     if debug >= 1: print 'Adding id as primary key'
     sql = "alter table %s add column id int not null auto_increment first, add primary key (id)" % table
     cur.execute(sql)
 
 
 def addIndex(table,column):
+    global cur, conn, debug
+    
     if debug >= 1: print 'Adding index idx_%s to column %s on table %s' % (column,column,table)
     sql = "alter table %s add index idx_%s(%s)" % (table,column,column)
     cur.execute(sql)
 
 
 def populateTableFrom(table,sourceTable):
+    global cur, conn, debug
+    
     if debug >= 1: print 'Inserting data into table: %s' % table
     sql = "insert into %s select * from %s %s" % (table, sourceTable, MySQLLimit)
     cur.execute(sql)
 
 
 def addHashes(table,sourceColumn):
+    global cur, conn, debug
     
     if debug >= 1: print 'Adding %s hashes to table %s' % (sourceColumn,table)
     sql = "alter table %s add column hash_%s varchar(50) after id" % (tableName,sourceColumn)
@@ -81,6 +94,7 @@ def addHashes(table,sourceColumn):
 
 
 def getAll(table,where=''):
+    global cur, conn, debug
     global rows, totalRows
 
     if debug >= 1: print "Loading data from table %s" % table
@@ -92,6 +106,9 @@ def getAll(table,where=''):
 
 
 def addPlain(table,sourceColumn,destColumn):
+    global cur, conn, debug
+    global rows, totalRows
+
     if debug >= 1: print 'Converting RTF to plain text'
     sql = "alter table %s add column %s text" % (table,destColumn)
     cur.execute(sql)
