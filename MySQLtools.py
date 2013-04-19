@@ -7,7 +7,7 @@ sys.setdefaultencoding('utf-8')
 def connMySQL():
     global cur, conn, debug
 
-    if debug >= 1: print 'Connecting to MySQL'
+    if settings.debug >= 1: print 'Connecting to MySQL'
     conn = db.Connect(
         host=MySQLhost,
         user=MySQLusername,
