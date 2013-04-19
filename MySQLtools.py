@@ -53,7 +53,10 @@ def createTable(table,columns):
     sql = "create table %s (" % table
     sql = sql + ', '.join(columns)
     sql = sql + ') engine = MyISAM default character set = utf8'
-    cur.execute(sql)
+    try:
+        cur.execute(sql)
+    except Exception:
+        print sql
 
 
 def addPK(table):
