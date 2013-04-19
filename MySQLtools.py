@@ -18,7 +18,7 @@ def connMySQL():
         db=settings.MySQLdb,
         cursorclass = libs.db.cursors.DictCursor,
         charset='utf8')
-    cur = libs.conn.cursor()
+    cur = conn.cursor()
     if settings.debug >= 1: print 'MySQL connection successful'
 
 
