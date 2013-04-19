@@ -33,7 +33,17 @@ MySQLLimit =    'limit 0,1000'
 # Define table name, source table and table indexes (idx)
 ta_main =               "ta_main"
 ta_main_source =        'monocraticas'
-ta_main_idx =           ['num_processo','ministro']
+ta_main_idx =           ['seq_objeto_incidente_principal',
+                         'sig_classe_proces',
+                         'num_processo',
+                         'dat_autuacao',
+                         'tip_julgamento',
+                         'nom_ministro',
+                         'dat_sessao',
+                         'seq_objeto_incidente_principal',
+                         'dat_criacao',
+                         'dsc_tipo'
+                         ]
 
 
 # Table: Analysis Words All
