@@ -3,6 +3,8 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
+import settings
+
 # MySQL connection
 def connMySQL():
     global cur, conn, debug
