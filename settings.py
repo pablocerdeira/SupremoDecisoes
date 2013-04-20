@@ -20,7 +20,7 @@ MySQLpasswd =   'pablo123'
 MySQLdb =       'fredericodba'
 
 # Rows limit when reading/writing from/to MySQL
-MySQLLimit =    'limit 0,1000'
+MySQLLimit =    'limit 0,100'
 
 # Analysis tables
 # We are going to adopt some table prefixies

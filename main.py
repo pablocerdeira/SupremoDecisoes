@@ -35,9 +35,9 @@ createWordFreq =    True
 
 
 ## Global variables and objects
-# conn: MySQL connection
-# cur:  MySQL cursor
-# rows: MySQL resultset
+global cur, conn
+global rows, totalRows
+
 
 # Main function
 def main():
