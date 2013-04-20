@@ -16,7 +16,7 @@ def connMySQL():
         user=st.MySQLusername,
         passwd=st.MySQLpasswd,
         db=st.MySQLdb,
-        cursorclass = db.cursors.DictCursor,
+        cursorclass = libs.db.cursors.DictCursor,
         charset='utf8')
     st.cur = conn.cursor()
     if st.debug >= 1: print 'MySQL connection successful'
