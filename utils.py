@@ -30,7 +30,7 @@ def rtf2txt(doc):
 
 def wordFrequence(text):
     
-    regex = libs.re.compile('[%s]' % libs.re.escape(libs.string.punctuation))
+    regex = re.compile('[%s]' % re.escape(string.punctuation.replace('-',u'“')))
     cleanText = regex.sub('', text)
 
     base_words = [word.lower() for word in libs.nltk.tokenize.word_tokenize(cleanText)]
