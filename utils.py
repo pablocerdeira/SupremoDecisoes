@@ -28,6 +28,24 @@ def rtf2txt(doc):
     return txt.decode('utf8')
 
 
+def wordFrequence(text):
+    
+    # Exclude ponctuation
+    excludeSet = set(libs.string.punctuation)
+    # PROBLEM: adding characters to excludeSet
+    excludeSet.add('–')
+    excludeSet.add('§')
+    
+    table = libs.string.maketrans("","")
+    cleanText = text.translate(table, string.punctuation)
+
+    base_words = [word.lower() for word in libs.nltk.tokenize.word_tokenize(cleanText)]
+    words = [word for word in base_words if word not in stopwords.words('portuguese')]
+    word_frequencies = libs.FreqDist(words)
+    return word_frequencies
+
+
+
 def write2disk(name,content):
     try:
         f = libs.codecs.open(st.exportFolder+str(name), "w", encoding='utf8')
@@ -50,3 +68,5 @@ def createCorpora():
 
     print 'Creating a corpora'
     decsCorp = Text(decs.words(), name="Decisoes STF")
+    
+    
