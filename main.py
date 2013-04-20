@@ -22,14 +22,20 @@ import MySQLtools as SQL
 #  - addPlain(table,sourceColumn,destColumn)
 
 # Steps to run or ignore
-connectDB =         True
-dropTables =        True
-createTables =      True
-createIndex =       True
-populateTable =     True
-addHash =           True
-convertRTF2text =   True
-createWordFreq =    True
+### WARNING ###
+### IMPORTANT ###
+# If you are testing, please, CHANGE TABLE NAMES in settings.py!
+# AGAIN: if you are testing, please, CHANGE TABLE NAMES in settings.py!
+# And then, change the variables below to True
+
+connectDB =         False
+dropTables =        False
+createTables =      False
+createIndex =       False
+populateTable =     False
+addHash =           False
+convertRTF2text =   False
+createWordFreq =    False
 
 
 # Main function

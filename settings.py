@@ -20,6 +20,8 @@ MySQLpasswd =   'pablo123'
 MySQLdb =       'fredericodba'
 
 # Rows limit when reading/writing from/to MySQL
+### WARNING ###
+# If you are testing, please, use 'limit 0,1000'
 MySQLLimit =    'limit 0,100000000'
 
 # Analysis tables
@@ -28,6 +30,11 @@ MySQLLimit =    'limit 0,100000000'
 #  - a: analysis
 #  - vw: view
 #  - rep: view saved as table (reports)
+
+### WARNING ###
+# If you are testing, please, CHANGE IT
+# Please do not use the same table names I'm using
+# or you will drop it
 
 # Main table
 # Define table name, source table and table indexes (idx)
