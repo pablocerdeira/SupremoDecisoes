@@ -36,8 +36,8 @@ def wordFrequence(text):
     excludeSet.add('–')
     excludeSet.add('§')
     
-    table = libs.string.maketrans("","")
-    cleanText = text.translate(table, libs.string.punctuation)
+    #table = libs.string.maketrans("","")
+    cleanText = text.translate(libs.string.punctuation)
 
     base_words = [word.lower() for word in libs.nltk.tokenize.word_tokenize(cleanText)]
     words = [word for word in base_words if word not in libs.stopwords.words('portuguese')]
