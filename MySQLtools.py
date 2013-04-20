@@ -3,31 +3,32 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-import libs
-import settings as st
+from libs import *
+from settings import *
+
 import utils as ut
 
 # MySQL connection
 def connMySQL():
     global cur, conn
 
-    if st.debug >= 1: print 'Connecting to MySQL'
-    conn = libs.db.Connect(
-        host=st.MySQLhost,
-        user=st.MySQLusername,
-        passwd=st.MySQLpasswd,
-        db=st.MySQLdb,
-        cursorclass = libs.db.cursors.DictCursor,
+    if debug >= 1: print 'Connecting to MySQL'
+    conn = db.Connect(
+        host=MySQLhost,
+        user=MySQLusername,
+        passwd=MySQLpasswd,
+        db=MySQLdb,
+        cursorclass = db.cursors.DictCursor,
         charset='utf8')
     cur = conn.cursor()
-    if st.debug >= 1: print 'MySQL connection successful'
+    if debug >= 1: print 'MySQL connection successful'
 
 
 # Procedural functions
 def dropTable(table):
     global cur, conn
     
-    if st.debug >= 1: print 'Dropping table: %s' % table
+    if debug >= 1: print 'Dropping table: %s' % table
     sql = "DROP TABLE %s" % table
     try:
         cur.execute(sql)
@@ -38,11 +39,11 @@ def dropTable(table):
 def createTableFrom(table,sourceTable):
     global cur, conn
     
-    if st.debug >= 1: print 'Creating table: %s' % table
-    sql = "create table %s select * from %s where 1=0 %s" % (table, sourceTable, st.MySQLLimit)
+    if debug >= 1: print 'Creating table: %s' % table
+    sql = "create table %s select * from %s where 1=0 %s" % (table, sourceTable, MySQLLimit)
     cur.execute(sql)
 
-    if st.debug >= 1: print 'Changing charset'
+    if debug >= 1: print 'Changing charset'
     sql = "alter table %s default character set = utf8, engine = MyISAM" % table
     cur.execute(sql)
     
@@ -50,7 +51,7 @@ def createTableFrom(table,sourceTable):
 def createTable(table,columns):
     global cur, conn
     
-    if st.debug >= 1: print 'Creating table: %s' % table
+    if debug >= 1: print 'Creating table: %s' % table
     sql = "create table %s (" % table
     sql = sql + ', '.join(columns)
     sql = sql + ') engine = MyISAM default character set = utf8'
@@ -63,7 +64,7 @@ def createTable(table,columns):
 def addPK(table):
     global cur, conn
     
-    if st.debug >= 1: print 'Adding id as primary key'
+    if debug >= 1: print 'Adding id as primary key'
     sql = "alter table %s add column id int not null auto_increment first, add primary key (id)" % table
     cur.execute(sql)
 
@@ -71,7 +72,7 @@ def addPK(table):
 def addIndex(table,column):
     global cur, conn
     
-    if st.debug >= 1: print 'Adding index idx_%s to column %s on table %s' % (column,column,table)
+    if debug >= 1: print 'Adding index idx_%s to column %s on table %s' % (column,column,table)
     sql = "alter table %s add index idx_%s(%s)" % (table,column,column)
     cur.execute(sql)
 
@@ -79,11 +80,11 @@ def addIndex(table,column):
 def populateTableFrom(table,sourceTable):
     global cur, conn
     
-    if st.debug >= 1: print 'Inserting data into table: %s' % table
+    if debug >= 1: print 'Inserting data into table: %s' % table
     sql = 'select * from %s where 1=0' % sourceTable
     cur.execute(sql)
     columns = [i[0] for i in cur.description]
-    sql = "insert into %s (%s) select * from %s %s" % (table, ', '.join(columns), sourceTable, st.MySQLLimit)
+    sql = "insert into %s (%s) select * from %s %s" % (table, ', '.join(columns), sourceTable, MySQLLimit)
     cur.execute(sql)
 
 
@@ -91,11 +92,11 @@ def addHashes(table,sourceColumn):
     global cur, conn
     global rows, totalRows
     
-    if st.debug >= 1: print 'Adding %s hashes to table %s' % (sourceColumn,table)
+    if debug >= 1: print 'Adding %s hashes to table %s' % (sourceColumn,table)
     sql = "alter table %s add column hash_%s varchar(50) after id" % (table,sourceColumn)
     cur.execute(sql)
     for row in rows:
-        sql = "update %s set hash_%s = '%s' where id = %s" % (table, sourceColumn, libs.hashlib.md5(row[sourceColumn]).hexdigest(), row['id'])
+        sql = "update %s set hash_%s = '%s' where id = %s" % (table, sourceColumn, hashlib.md5(row[sourceColumn]).hexdigest(), row['id'])
         cur.execute(sql)
     conn.commit()
 
@@ -104,24 +105,24 @@ def getAll(table,where=''):
     global cur, conn
     global rows, totalRows
 
-    if st.debug >= 1: print "Loading data from table %s" % table
-    sql = "select * from %s %s %s" % (table, where, st.MySQLLimit)
+    if debug >= 1: print "Loading data from table %s" % table
+    sql = "select * from %s %s %s" % (table, where, MySQLLimit)
     cur.execute(sql)
     rows = cur.fetchall()
     totalRows = cur.rowcount
-    if st.debug >= 1: print "Data loaded: %s rows" % totalRows
+    if debug >= 1: print "Data loaded: %s rows" % totalRows
 
 
 def addPlain(table,sourceColumn,destColumn):
     global cur, conn
     global rows, totalRows
 
-    if st.debug >= 1: print 'Converting RTF to plain text'
+    if debug >= 1: print 'Converting RTF to plain text'
     sql = "alter table %s add column %s text" % (table,destColumn)
     cur.execute(sql)
     for row in rows:
         percentage = str(float(row['id'])/totalRows*100)+'%'
-        if st.debug >= 2: print 'Converting RTF to plain text (id): %s of %s (%s)' % (row['id'],totalRows,percentage)
+        if debug >= 2: print 'Converting RTF to plain text (id): %s of %s (%s)' % (row['id'],totalRows,percentage)
         sql = "update %s set %s = '%s ' where id = %s" % (table, destColumn, ut.rtf2txt(row[sourceColumn]).replace("'",''),row['id'])
         try:
             cur.execute(sql)
@@ -133,7 +134,7 @@ def addPlain(table,sourceColumn,destColumn):
 
 def writeFiles():
     print 'Writing files to disk'
-    sql = "select id, num_processo, txt_text from %s where txt_text is not null %s" % (table, st.MySQLLimit)
+    sql = "select id, num_processo, txt_text from %s where txt_text is not null %s" % (table, MySQLLimit)
     cur.execute(sql)
     txts = cur.fetchall()
     i = 1

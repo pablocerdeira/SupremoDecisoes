@@ -60,6 +60,12 @@ ta_words_all_idx =       ['id_monocratica','word','word_count']
 exporToDisk = False
 exportFolder = '/home/pablocerdeira/corpora/decisoes_supremo/'
 
+########################
+##### GLOBAL VARS ######
+########################
+
+global cur, conn
+global rows, totalRows
 
 ########################
 ##### END SETTINGS #####

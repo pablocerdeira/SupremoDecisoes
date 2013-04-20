@@ -3,8 +3,8 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-import libs
-import settings as st
+from libs import *
+from settings import *
 
 # General functions
 def md5(text):
@@ -15,11 +15,11 @@ def md5(text):
 
 
 def rtf2txt(doc):
-    rtf = libs.cStringIO.StringIO()
+    rtf = cStringIO.StringIO()
     try:
         rtf.write(doc)
-        read = libs.Rtf15Reader.read(rtf)
-        txt = libs.PlaintextWriter.write(read).read()
+        read = Rtf15Reader.read(rtf)
+        txt = PlaintextWriter.write(read).read()
         txt = txt.replace("'","")
     except Exception:
         txt = ''
@@ -31,24 +31,24 @@ def rtf2txt(doc):
 def wordFrequence(text):
     
     # Exclude ponctuation
-    excludeSet = set(libs.string.punctuation)
+    excludeSet = set(string.punctuation)
     # PROBLEM: adding characters to excludeSet
     excludeSet.add('–')
     excludeSet.add('§')
     
-    table = libs.string.maketrans("","")
+    table = string.maketrans("","")
     cleanText = text.translate(table, string.punctuation)
 
-    base_words = [word.lower() for word in libs.nltk.tokenize.word_tokenize(cleanText)]
+    base_words = [word.lower() for word in nltk.tokenize.word_tokenize(cleanText)]
     words = [word for word in base_words if word not in stopwords.words('portuguese')]
-    word_frequencies = libs.FreqDist(words)
+    word_frequencies = FreqDist(words)
     return word_frequencies
 
 
 
 def write2disk(name,content):
     try:
-        f = libs.codecs.open(st.exportFolder+str(name), "w", encoding='utf8')
+        f = codecs.open(exportFolder+str(name), "w", encoding='utf8')
         try:
             f.write(content)
         finally:
@@ -62,8 +62,8 @@ def createCorpora():
     global decsCorp
 
     print 'Reading files from disk'
-    root = st.exportFolder
-    decs = libs.PlaintextCorpusReader(root, '.*\.txt')
+    root = exportFolder
+    decs = PlaintextCorpusReader(root, '.*\.txt')
     print decs.fileids()
 
     print 'Creating a corpora'
