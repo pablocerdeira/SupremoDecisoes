@@ -11,7 +11,7 @@ sys.setdefaultencoding('utf-8')
 #  - Debug = 0: no debug
 #  - Debug = 1: return basic information
 #  - Debug = 2: return detailed information
-debug = 2
+debug = 1
 
 # MySQL settings
 MySQLhost =     '172.16.4.51'
@@ -20,7 +20,7 @@ MySQLpasswd =   'pablo123'
 MySQLdb =       'fredericodba'
 
 # Rows limit when reading/writing from/to MySQL
-MySQLLimit =    'limit 0,100'
+MySQLLimit =    'limit 0,100000000'
 
 # Analysis tables
 # We are going to adopt some table prefixies
