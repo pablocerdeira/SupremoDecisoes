@@ -64,8 +64,8 @@ exportFolder = '/home/pablocerdeira/corpora/decisoes_supremo/'
 ##### GLOBAL VARS ######
 ########################
 
-cur, conn
-rows, totalRows
+cur, conn = 0
+rows, totalRows = 0
 
 ########################
 ##### END SETTINGS #####
