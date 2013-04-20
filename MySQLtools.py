@@ -36,7 +36,7 @@ def dropTable(table):
 def createTableFrom(table,sourceTable):
     
     if st.debug >= 1: print 'Creating table: %s' % table
-    sql = "create table %s select * from %s where 1=0 %s" % (table, sourceTable, MySQLLimit)
+    sql = "create table %s select * from %s where 1=0 %s" % (table, sourceTable, st.MySQLLimit)
     st.cur.execute(sql)
 
     if st.debug >= 1: print 'Changing charset'
@@ -77,7 +77,7 @@ def populateTableFrom(table,sourceTable):
     st.cur.execute(sql)
     
     columns = [i[0] for i in st.cur.description]
-    sql = "insert into %s (%s) select * from %s %s" % (table, ', '.join(columns), sourceTable, MySQLLimit)
+    sql = "insert into %s (%s) select * from %s %s" % (table, ', '.join(columns), sourceTable, st.MySQLLimit)
     st.cur.execute(sql)
 
 
@@ -95,7 +95,7 @@ def addHashes(table,sourceColumn):
 def getAll(table,where=''):
 
     if st.debug >= 1: print "Loading data from table %s" % table
-    sql = "select * from %s %s %s" % (table, where, MySQLLimit)
+    sql = "select * from %s %s %s" % (table, where, st.MySQLLimit)
     st.cur.execute(sql)
     st.rows = st.cur.fetchall()
     st.totalRows = st.cur.rowcount
@@ -121,7 +121,7 @@ def addPlain(table,sourceColumn,destColumn):
 
 def writeFiles():
     print 'Writing files to disk'
-    sql = "select id, num_processo, txt_text from %s where txt_text is not null %s" % (table, MySQLLimit)
+    sql = "select id, num_processo, txt_text from %s where txt_text is not null %s" % (table, st.MySQLLimit)
     st.cur.execute(sql)
     txts = st.cur.fetchall()
     i = 1
