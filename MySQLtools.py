@@ -87,7 +87,7 @@ def addHashes(table,sourceColumn):
     sql = "alter table %s add column hash_%s varchar(50) after id" % (table,sourceColumn)
     st.cur.execute(sql)
     for row in st.rows:
-        sql = "update %s set hash_%s = '%s' where id = %s" % (table, sourceColumn, hashlib.md5(row[sourceColumn]).hexdigest(), row['id'])
+        sql = "update %s set hash_%s = '%s' where id = %s" % (table, sourceColumn, libs.hashlib.md5(row[sourceColumn]).hexdigest(), row['id'])
         st.cur.execute(sql)
     conn.commit()
 
