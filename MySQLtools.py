@@ -11,14 +11,14 @@ import utils as ut
 def connMySQL():
 
     if st.debug >= 1: print 'Connecting to MySQL'
-    conn = libs.db.Connect(
+    st.conn = libs.db.Connect(
         host=st.MySQLhost,
         user=st.MySQLusername,
         passwd=st.MySQLpasswd,
         db=st.MySQLdb,
         cursorclass = libs.db.cursors.DictCursor,
         charset='utf8')
-    st.cur = conn.cursor()
+    st.cur = st.conn.cursor()
     if st.debug >= 1: print 'MySQL connection successful'
 
 
@@ -89,7 +89,7 @@ def addHashes(table,sourceColumn):
     for row in st.rows:
         sql = "update %s set hash_%s = '%s' where id = %s" % (table, sourceColumn, libs.hashlib.md5(row[sourceColumn]).hexdigest(), row['id'])
         st.cur.execute(sql)
-    conn.commit()
+    st.conn.commit()
 
 
 def getAll(table,where=''):
@@ -116,7 +116,7 @@ def addPlain(table,sourceColumn,destColumn):
         except Exception:
             print sql
             pass
-        conn.commit()
+        st.conn.commit()
 
 
 def writeFiles():
