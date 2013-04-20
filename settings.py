@@ -47,7 +47,7 @@ ta_main_idx =           ['seq_objeto_incidente_principal',
 
 # Table: Analysis Words All
 # Define table name, table columns and table indexes (idx)
-ta_words_all =          "ta_words_all"           
+ta_words_all =          "ta_words_freq"           
 ta_words_all_columns =  ['id int not null',
                          'id_monocratica int null',
                          'word varchar(255) null',
@@ -64,8 +64,8 @@ exportFolder = '/home/pablocerdeira/corpora/decisoes_supremo/'
 ##### GLOBAL VARS ######
 ########################
 
-global cur, conn
-global rows, totalRows
+cur, conn
+rows, totalRows
 
 ########################
 ##### END SETTINGS #####
