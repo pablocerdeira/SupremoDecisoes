@@ -30,9 +30,8 @@ def rtf2txt(doc):
 
 def wordFrequence(text):
     
-    text = text.encode('utf8')
-    table = libs.string.maketrans("","")
-    cleanText = text.translate(table,libs.string.punctuation)
+    regex = libs.re.compile('[%s]' % libs.re.escape(libs.string.punctuation))
+    cleanText = regex.sub('', text)
 
     base_words = [word.lower() for word in libs.nltk.tokenize.word_tokenize(cleanText)]
     words = [word for word in base_words if word not in libs.stopwords.words('portuguese')]

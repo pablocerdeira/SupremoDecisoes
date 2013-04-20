@@ -22,4 +22,4 @@ from nltk.text import Text
 from nltk.corpus.reader.plaintext import PlaintextCorpusReader
 from nltk import FreqDist
 from nltk.corpus import stopwords
-import string
+import string, re
