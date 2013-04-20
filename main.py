@@ -41,6 +41,8 @@ global rows, totalRows
 
 # Main function
 def main():
+    global cur, conn
+    global rows, totalRows
     
     if connectDB == True:
         connMySQL()                                        # Connect to MySQL
