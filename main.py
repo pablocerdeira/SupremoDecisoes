@@ -48,7 +48,7 @@ def main():
         SQL.addPK(st.ta_main)                                  # Add primary key to ta_main
     
         # Create ta_word_all
-        SQL.createTable(st.ta_words_all,ta_words_all_columns)
+        SQL.createTable(st.ta_words_all,st.ta_words_all_columns)
     
     if createIndex == True:
         # Index ta_main
