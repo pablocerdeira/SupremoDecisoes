@@ -3,23 +3,23 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-from libs import *
-from settings import *
+import libs
+import settings as st
 
 # General functions
 def md5(text):
-    hash = hashlib.md5(str(text)).hexdigest()
+    hash = libs.hashlib.md5(str(text)).hexdigest()
     if hash == None:
         hash = ''
     return hash
 
 
 def rtf2txt(doc):
-    rtf = cStringIO.StringIO()
+    rtf = libs.cStringIO.StringIO()
     try:
         rtf.write(doc)
-        read = Rtf15Reader.read(rtf)
-        txt = PlaintextWriter.write(read).read()
+        read = libs.Rtf15Reader.read(rtf)
+        txt = libs.PlaintextWriter.write(read).read()
         txt = txt.replace("'","")
     except Exception:
         txt = ''
@@ -31,17 +31,17 @@ def rtf2txt(doc):
 def wordFrequence(text):
     
     # Exclude ponctuation
-    excludeSet = set(string.punctuation)
+    excludeSet = set(libs.string.punctuation)
     # PROBLEM: adding characters to excludeSet
     excludeSet.add('–')
     excludeSet.add('§')
     
-    table = string.maketrans("","")
-    cleanText = text.translate(table, string.punctuation)
+    table = libs.string.maketrans("","")
+    cleanText = text.translate(table, libs.string.punctuation)
 
-    base_words = [word.lower() for word in nltk.tokenize.word_tokenize(cleanText)]
-    words = [word for word in base_words if word not in stopwords.words('portuguese')]
-    word_frequencies = FreqDist(words)
+    base_words = [word.lower() for word in libs.nltk.tokenize.word_tokenize(cleanText)]
+    words = [word for word in base_words if word not in libs.stopwords.words('portuguese')]
+    word_frequencies = libs.FreqDist(words)
     return word_frequencies
 
 

@@ -3,129 +3,116 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-from libs import *
-from settings import *
-
+import libs
+import settings as st
 import utils as ut
 
 # MySQL connection
 def connMySQL():
-    global cur, conn
 
-    if debug >= 1: print 'Connecting to MySQL'
-    conn = db.Connect(
-        host=MySQLhost,
-        user=MySQLusername,
-        passwd=MySQLpasswd,
-        db=MySQLdb,
+    if st.debug >= 1: print 'Connecting to MySQL'
+    conn = libs.db.Connect(
+        host=st.MySQLhost,
+        user=st.MySQLusername,
+        passwd=st.MySQLpasswd,
+        db=st.MySQLdb,
         cursorclass = db.cursors.DictCursor,
         charset='utf8')
-    cur = conn.cursor()
-    if debug >= 1: print 'MySQL connection successful'
+    st.cur = conn.cursor()
+    if st.debug >= 1: print 'MySQL connection successful'
 
 
 # Procedural functions
 def dropTable(table):
-    global cur, conn
     
-    if debug >= 1: print 'Dropping table: %s' % table
+    if st.debug >= 1: print 'Dropping table: %s' % table
     sql = "DROP TABLE %s" % table
     try:
-        cur.execute(sql)
+        st.cur.execute(sql)
     except Exception:
         pass
 
 
 def createTableFrom(table,sourceTable):
-    global cur, conn
     
-    if debug >= 1: print 'Creating table: %s' % table
+    if st.debug >= 1: print 'Creating table: %s' % table
     sql = "create table %s select * from %s where 1=0 %s" % (table, sourceTable, MySQLLimit)
-    cur.execute(sql)
+    st.cur.execute(sql)
 
-    if debug >= 1: print 'Changing charset'
+    if st.debug >= 1: print 'Changing charset'
     sql = "alter table %s default character set = utf8, engine = MyISAM" % table
-    cur.execute(sql)
+    st.cur.execute(sql)
     
 
 def createTable(table,columns):
-    global cur, conn
     
-    if debug >= 1: print 'Creating table: %s' % table
+    if st.debug >= 1: print 'Creating table: %s' % table
     sql = "create table %s (" % table
     sql = sql + ', '.join(columns)
     sql = sql + ') engine = MyISAM default character set = utf8'
     try:
-        cur.execute(sql)
+        st.cur.execute(sql)
     except Exception:
         print 'ERROR: ', sql
 
 
 def addPK(table):
-    global cur, conn
     
-    if debug >= 1: print 'Adding id as primary key'
+    if st.debug >= 1: print 'Adding id as primary key'
     sql = "alter table %s add column id int not null auto_increment first, add primary key (id)" % table
-    cur.execute(sql)
+    st.cur.execute(sql)
 
 
 def addIndex(table,column):
-    global cur, conn
     
-    if debug >= 1: print 'Adding index idx_%s to column %s on table %s' % (column,column,table)
+    if st.debug >= 1: print 'Adding index idx_%s to column %s on table %s' % (column,column,table)
     sql = "alter table %s add index idx_%s(%s)" % (table,column,column)
-    cur.execute(sql)
+    st.cur.execute(sql)
 
 
 def populateTableFrom(table,sourceTable):
-    global cur, conn
     
-    if debug >= 1: print 'Inserting data into table: %s' % table
+    if st.debug >= 1: print 'Inserting data into table: %s' % table
     sql = 'select * from %s where 1=0' % sourceTable
-    cur.execute(sql)
-    columns = [i[0] for i in cur.description]
+    st.cur.execute(sql)
+    
+    columns = [i[0] for i in st.cur.description]
     sql = "insert into %s (%s) select * from %s %s" % (table, ', '.join(columns), sourceTable, MySQLLimit)
-    cur.execute(sql)
+    st.cur.execute(sql)
 
 
 def addHashes(table,sourceColumn):
-    global cur, conn
-    global rows, totalRows
     
-    if debug >= 1: print 'Adding %s hashes to table %s' % (sourceColumn,table)
+    if st.debug >= 1: print 'Adding %s hashes to table %s' % (sourceColumn,table)
     sql = "alter table %s add column hash_%s varchar(50) after id" % (table,sourceColumn)
-    cur.execute(sql)
-    for row in rows:
+    st.cur.execute(sql)
+    for row in st.rows:
         sql = "update %s set hash_%s = '%s' where id = %s" % (table, sourceColumn, hashlib.md5(row[sourceColumn]).hexdigest(), row['id'])
-        cur.execute(sql)
+        st.cur.execute(sql)
     conn.commit()
 
 
 def getAll(table,where=''):
-    global cur, conn
-    global rows, totalRows
 
-    if debug >= 1: print "Loading data from table %s" % table
+    if st.debug >= 1: print "Loading data from table %s" % table
     sql = "select * from %s %s %s" % (table, where, MySQLLimit)
-    cur.execute(sql)
-    rows = cur.fetchall()
-    totalRows = cur.rowcount
-    if debug >= 1: print "Data loaded: %s rows" % totalRows
+    st.cur.execute(sql)
+    st.rows = st.cur.fetchall()
+    st.totalRows = st.cur.rowcount
+    if st.debug >= 1: print "Data loaded: %s rows" % st.totalRows
 
 
 def addPlain(table,sourceColumn,destColumn):
-    global cur, conn
-    global rows, totalRows
 
-    if debug >= 1: print 'Converting RTF to plain text'
+    if st.debug >= 1: print 'Converting RTF to plain text'
     sql = "alter table %s add column %s text" % (table,destColumn)
-    cur.execute(sql)
-    for row in rows:
-        percentage = str(float(row['id'])/totalRows*100)+'%'
-        if debug >= 2: print 'Converting RTF to plain text (id): %s of %s (%s)' % (row['id'],totalRows,percentage)
+    st.cur.execute(sql)
+    for row in st.rows:
+        percentage = str(float(row['id'])/st.totalRows*100)+'%'
+        if st.debug >= 2: print 'Converting RTF to plain text (id): %s of %s (%s)' % (row['id'],st.totalRows,percentage)
         sql = "update %s set %s = '%s ' where id = %s" % (table, destColumn, ut.rtf2txt(row[sourceColumn]).replace("'",''),row['id'])
         try:
-            cur.execute(sql)
+            st.cur.execute(sql)
         except Exception:
             print sql
             pass
@@ -135,12 +122,12 @@ def addPlain(table,sourceColumn,destColumn):
 def writeFiles():
     print 'Writing files to disk'
     sql = "select id, num_processo, txt_text from %s where txt_text is not null %s" % (table, MySQLLimit)
-    cur.execute(sql)
-    txts = cur.fetchall()
+    st.cur.execute(sql)
+    txts = st.cur.fetchall()
     i = 1
     for txt in txts:
         filename = str(txt['id'])+'-'+str(txt['num_processo'])+'.txt'
-        print 'Writing file: %s - (%s of %s)' % (filename,i,cur.rowcount)
+        print 'Writing file: %s - (%s of %s)' % (filename,i,st.cur.rowcount)
         write2disk(filename,txt['txt_text'])
         i+=1
 

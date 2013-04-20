@@ -66,7 +66,7 @@ exportFolder = '/home/pablocerdeira/corpora/decisoes_supremo/'
 
 cur =       0
 conn =      0
-rows =      0 
+rows =      [] 
 totalRows = 0
 
 ########################
