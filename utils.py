@@ -30,14 +30,9 @@ def rtf2txt(doc):
 
 def wordFrequence(text):
     
-    # Exclude ponctuation
-    excludeSet = set(libs.string.punctuation)
-    # PROBLEM: adding characters to excludeSet
-    excludeSet.add('–')
-    excludeSet.add('§')
-    
-    #table = libs.string.maketrans("","")
-    cleanText = text.translate(libs.string.punctuation)
+    text = text.encode('utf8')
+    table = libs.string.maketrans("","")
+    cleanText = text.translate(table,libs.string.punctuation)
 
     base_words = [word.lower() for word in libs.nltk.tokenize.word_tokenize(cleanText)]
     words = [word for word in base_words if word not in libs.stopwords.words('portuguese')]
