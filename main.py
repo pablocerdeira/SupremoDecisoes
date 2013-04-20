@@ -85,7 +85,10 @@ def main():
             for word in word_frequencies:
                 if st.debug >= 2: print row['id'], word, word_frequencies[word]
                 sql = 'insert into %s (id_monocratica,word,word_count) values (%s,%s,%s)' % (st.ta_words_all, row['id'], word, word_frequencies[word])
-                st.cur.execute(sql)
+                try:
+                    st.cur.execute(sql)
+                except Exception:
+                    print sql
                 st.conn.commit()
 
 
