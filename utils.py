@@ -40,7 +40,6 @@ def wordFrequence(text):
     return word_frequencies
 
 
-
 def write2disk(name,content):
     try:
         f = codecs.open(exportFolder+str(name), "w", encoding='utf8')

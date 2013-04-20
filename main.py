@@ -83,7 +83,10 @@ def main():
         for row in st.rows:
             word_frequencies = ut.wordFrequence(row['txt_text'])
             for word in word_frequencies:
-                print row['id'], word, word_frequencies[word]
+                if st.debug >= 2: print row['id'], word, word_frequencies[word]
+                sql = 'insert into %s (id_monocratica,word,word_count) values (%s,%s,%s)' % (st.ta_words_all, row['id'], word, word_frequencies[word])
+                st.cur.execute(sql)
+                st.conn.commit()
 
 
     #writeFiles()
