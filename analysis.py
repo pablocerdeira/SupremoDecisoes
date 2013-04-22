@@ -19,6 +19,7 @@ connectDB =         True
 load2Pandas =       True
 decsPerClass =      True
 decsPerJustice =    True
+decsPerJusticeClass = True
 
 # Main function
 def main():
@@ -36,6 +37,10 @@ def main():
 
     if decsPerJustice == True:
         grouped = df.groupby('nom_ministro').id_ta_main.nunique()
+        print grouped
+
+    if decsPerJusticeClass == True:
+        grouped = df.groupby(['nom_ministro','sig_classe_proces']).id_ta_main.nunique()
         print grouped
 
 if __name__ == "__main__":
