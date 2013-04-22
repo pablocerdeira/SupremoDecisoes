@@ -73,7 +73,7 @@ def main():
 
     if topWords == True:
         grouped = df.groupby(['word']).id_ta_main.nunique()
-        print grouped,order()
+        print grouped.order()
 
 if __name__ == "__main__":
     main()
