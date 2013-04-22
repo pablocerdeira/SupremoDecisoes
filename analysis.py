@@ -33,7 +33,7 @@ def main():
         df = SQL.MySQL2Pandas(sql)
 
     if decsPerYear == True:
-        grouped = df.groupby('dat_criacao').id_ta_main.nunique()
+        grouped = df.groupby(df['dat_criacao'].map(lambda x: x.year)).id_ta_main.nunique()
         print grouped
 
     if decsPerClass == True:
