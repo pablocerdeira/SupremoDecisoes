@@ -28,7 +28,7 @@ import MySQLtools as SQL
 # AGAIN: if you are testing, please, CHANGE TABLE NAMES in settings.py!
 # And then, change the variables below to True
 
-connectDB =         False
+connectDB =         True
 dropTables =        False
 createTables =      False
 createIndex =       False
@@ -36,6 +36,7 @@ populateTable =     False
 addHash =           False
 convertRTF2text =   False
 createWordFreq =    False
+createViews =       True
 
 
 # Main function
@@ -69,23 +70,28 @@ def main():
         # Populate ta_main
         SQL.populateTableFrom(st.ta_main,st.ta_main_source)
         
-    # Get data from ta_main and save it to rows
-    # Used to create hashes and to convert RTF to txt
-    SQL.getAll(st.ta_main,'where txt_conteudo is not null')
-
     # Add hashes to ta_main
     if addHash == True:
+        
+        # Get data from ta_main and save it to rows
+        # Used to create hashes and to convert RTF to txt
+        SQL.getAll(st.ta_main,'where txt_conteudo is not null')
+
         SQL.addHashes(st.ta_main,'txt_conteudo')
         SQL.addIndex(st.ta_main,'hash_txt_conteudo')
     
     if convertRTF2text == True:
+        if st.totalRows < 1:
+            SQL.getAll(st.ta_main,'where txt_conteudo is not null')
+            
         SQL.addPlain(st.ta_main,'txt_conteudo','txt_text')
 
-    # Get data from ta_main and save it to rows
-    # Used to create word frequencies
-    SQL.getAll(st.ta_main,'where txt_text is not null')
-
     if createWordFreq == True:
+
+        # Get data from ta_main and save it to rows
+        # Used to create word frequencies
+        SQL.getAll(st.ta_main,'where txt_text is not null')
+
         for row in st.rows:
             word_frequencies = ut.wordFrequence(row['txt_text'])
             for word in word_frequencies:
@@ -96,7 +102,42 @@ def main():
                 except Exception:
                     print sql
                 st.conn.commit()
-
+                
+    if createViews == True:
+        #Create main view
+        sql = 'drop view vw_words_freq_main'
+        try:
+            st.cur.execute(sql)
+        except Exception:
+            pass
+        sql = '''
+            create view vw_words_freq_main as 
+            select 
+              m.id id_ta_main, m.hash_txt_conteudo,
+              m.seq_objeto_incidente_principal,
+              m.sig_classe_proces,
+              m.num_processo,
+              m.dat_autuacao,
+              m.cod_recurso,
+              m.tip_julgamento,
+              m.seq_objeto_incidente,
+              m.cod_ministro,
+              m.nom_ministro,
+              m.dat_sessao,
+              m.dat_criacao,
+              m.cod_tipo_texto,
+              m.dsc_tipo,
+              wf.id id_wf,
+              wf.word,
+              wf.word_count
+            from
+              {0} m,
+              {1} wf
+            where
+              m.id = wf.id_monocratica
+            '''.format(st.ta_main,st.ta_words_all)
+        st.cur.execute(sql)
+        
 
     #writeFiles()
     #createCorpora()
