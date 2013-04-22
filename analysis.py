@@ -25,6 +25,9 @@ decsPerJusticeClass = True
 decsPerJusticeYear = True
 decsPerYearJustice = True
 
+topWords =          True
+
+
 # Main function
 def main():
     
@@ -68,6 +71,9 @@ def main():
         grouped = df.groupby([df['dat_criacao'].map(lambda x: x.year),'nom_ministro']).id_ta_main.nunique()
         print grouped
 
+    if topWords == True:
+        grouped = df.groupby(['word']).id_ta_main.nunique()
+        print grouped
 
 if __name__ == "__main__":
     main()
