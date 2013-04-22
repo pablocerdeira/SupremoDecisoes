@@ -17,6 +17,7 @@ import MySQLtools as SQL
 
 connectDB =         True
 load2Pandas =       True
+decsPerYear =       True
 decsPerClass =      True
 decsPerJustice =    True
 decsPerJusticeClass = True
@@ -30,6 +31,10 @@ def main():
     if load2Pandas == True:
         sql = 'select * from tmp'
         df = SQL.MySQL2Pandas(sql)
+
+    if decsPerYear == True:
+        grouped = df.groupby('dat_criacao').id_ta_main.nunique()
+        print grouped
 
     if decsPerClass == True:
         grouped = df.groupby('sig_classe_proces').id_ta_main.nunique()
