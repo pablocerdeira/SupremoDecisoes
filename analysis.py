@@ -17,6 +17,7 @@ import MySQLtools as SQL
 
 connectDB =         True
 load2Pandas =       True
+decsPerClass =      True
 decsPerJustice =    True
 
 # Main function
@@ -28,6 +29,10 @@ def main():
     if load2Pandas == True:
         sql = 'select * from tmp'
         df = SQL.MySQL2Pandas(sql)
+
+    if decsPerClass == True:
+        grouped = df.groupby('sig_classe_proces').id_ta_main.nunique()
+        print grouped
 
     if decsPerJustice == True:
         grouped = df.groupby('nom_ministro').id_ta_main.nunique()
