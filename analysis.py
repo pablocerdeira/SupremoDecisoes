@@ -17,6 +17,7 @@ import MySQLtools as SQL
 
 connectDB =         True
 load2Pandas =       True
+decsPerJustice =    True
 
 # Main function
 def main():
@@ -27,7 +28,10 @@ def main():
     if load2Pandas == True:
         sql = 'select * from tmp'
         df = SQL.MySQL2Pandas(sql)
-        print df[:10]
+
+    if decsPerJustice == True:
+        grouped = df.groupby('nom_ministro').id_ta_main.nunique()
+        print grouped
 
 if __name__ == "__main__":
     main()
