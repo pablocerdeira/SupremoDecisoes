@@ -110,6 +110,7 @@ def main():
             st.cur.execute(sql)
         except Exception:
             pass
+        if st.debug >= 1: print 'Creating view vw_words_freq_main'
         sql = '''
             create view vw_words_freq_main as 
             select 
@@ -137,6 +138,7 @@ def main():
               m.id = wf.id_monocratica
             '''.format(st.ta_main,st.ta_words_all)
         st.cur.execute(sql)
+        if st.debug >= 1: print 'Done: view vw_words_freq_main'
         
 
     #writeFiles()
