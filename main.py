@@ -140,6 +140,125 @@ def main():
         st.cur.execute(sql)
         if st.debug >= 1: print 'Done: view vw_words_freq_main'
         
+        #Create vw_words_freq_total_lines view
+        sql = 'drop view vw_words_freq_total_lines'
+        try:
+            st.cur.execute(sql)
+        except Exception:
+            pass
+        if st.debug >= 1: print 'Creating view vw_words_freq_total_lines'
+        sql = '''
+            create view vw_words_freq_total_lines as 
+            select max(id) total_lines
+            from {0};
+            '''.format(st.ta_words_all)
+        st.cur.execute(sql)
+        if st.debug >= 1: print 'Done: view vw_words_freq_total_lines'
+        
+        #Create vw_total_words view
+        sql = 'drop view vw_total_words'
+        try:
+            st.cur.execute(sql)
+        except Exception:
+            pass
+        if st.debug >= 1: print 'Creating view vw_total_words'
+        sql = '''
+            create view vw_total_words as 
+            select sum(word_count) total_words
+            from {0};
+            '''.format(st.ta_words_all)
+        st.cur.execute(sql)
+        if st.debug >= 1: print 'Done: view vw_total_words'
+        
+        #Create vw_total_distinct_words view
+        sql = 'drop view vw_total_distinct_words'
+        try:
+            st.cur.execute(sql)
+        except Exception:
+            pass
+        if st.debug >= 1: print 'Creating view vw_total_distinct_words'
+        sql = '''
+            create view vw_total_distinct_words as 
+            select count(distinct word) total_distinct_words
+            from {0};
+            '''.format(st.ta_words_all)
+        st.cur.execute(sql)
+        if st.debug >= 1: print 'Done: view vw_total_distinct_words'
+        
+        #Create vw_top_words view
+        sql = 'drop view vw_top_words'
+        try:
+            st.cur.execute(sql)
+        except Exception:
+            pass
+        if st.debug >= 1: print 'Creating view vw_top_words'
+        sql = '''
+            create view vw_top_words as 
+            select word, sum(word_count) word_count
+            from vw_words_freq_main
+            group by word
+            order by sum(word_count) desc;
+            '''
+        st.cur.execute(sql)
+        if st.debug >= 1: print 'Done: view vw_top_words'
+        
+        #Create vw_words_per_decision view
+        sql = 'drop view vw_words_per_decision'
+        try:
+            st.cur.execute(sql)
+        except Exception:
+            pass
+        if st.debug >= 1: print 'Creating view vw_words_per_decision'
+        sql = '''
+            create view vw_words_per_decision as 
+            select 
+              id_ta_main,
+              hash_txt_conteudo,
+              sig_classe_proces,
+              num_processo,
+              dat_autuacao,
+              tip_julgamento,
+              nom_ministro,
+              dat_criacao,
+              dsc_tipo,
+              sum(word_count) total_words
+            from 
+              vw_words_freq_main
+            group by id_ta_main
+            order by sum(word_count) desc;
+            '''
+        st.cur.execute(sql)
+        if st.debug >= 1: print 'Done: view vw_words_per_decision'
+        
+        #Create vw_distinct_words_per_decision view
+        sql = 'drop view vw_distinct_words_per_decision'
+        try:
+            st.cur.execute(sql)
+        except Exception:
+            pass
+        if st.debug >= 1: print 'Creating view vw_distinct_words_per_decision'
+        sql = '''
+            create view vw_distinct_words_per_decision as 
+            select 
+              id_ta_main,
+              hash_txt_conteudo,
+              sig_classe_proces,
+              num_processo,
+              dat_autuacao,
+              tip_julgamento,
+              nom_ministro,
+              dat_criacao,
+              dsc_tipo,
+              count(distinct word) total_distinct_words
+            from 
+              vw_words_freq_main
+            group by id_ta_main
+            order by count(distinct word) desc;
+            '''
+        st.cur.execute(sql)
+        if st.debug >= 1: print 'Done: view vw_distinct_words_per_decision'
+        
+        
 
     #writeFiles()
     #createCorpora()
