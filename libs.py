@@ -23,3 +23,8 @@ from nltk.corpus.reader.plaintext import PlaintextCorpusReader
 from nltk import FreqDist
 from nltk.corpus import stopwords
 import string, re
+
+# Data Analysis
+import pandas
+import pandas.io.sql as psql
+import numpy as np

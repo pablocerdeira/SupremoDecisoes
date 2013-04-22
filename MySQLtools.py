@@ -119,6 +119,11 @@ def addPlain(table,sourceColumn,destColumn):
         st.conn.commit()
 
 
+def MySQL2Pandas(sql):
+
+    return libs.psql.frame_query(sql, con=st.conn)
+
+
 def writeFiles():
     print 'Writing files to disk'
     sql = "select id, num_processo, txt_text from %s where txt_text is not null %s" % (table, st.MySQLLimit)
