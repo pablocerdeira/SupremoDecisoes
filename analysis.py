@@ -18,9 +18,10 @@ import MySQLtools as SQL
 connectDB =         True
 load2Pandas =       True
 decsPerYear =       True
-decsPerClass =      False
-decsPerJustice =    False
-decsPerJusticeClass = False
+decsPerClass =      True
+decsPerYearClass =  True
+decsPerJustice =    True
+decsPerJusticeClass = True
 
 # Main function
 def main():
@@ -28,18 +29,27 @@ def main():
     if connectDB == True:
         SQL.connMySQL()                                        # Connect to MySQL
 
+    # Load MySQL resultset into Pandas dataframe
     if load2Pandas == True:
         sql = 'select * from tmp'
         df = SQL.MySQL2Pandas(sql)
 
+    # Report: decisions por year
     if decsPerYear == True:
         grouped = df.groupby(df['dat_criacao'].map(lambda x: x.year)).id_ta_main.nunique()
         print grouped
 
+    # Report: decisions por class
     if decsPerClass == True:
         grouped = df.groupby('sig_classe_proces').id_ta_main.nunique()
         print grouped
 
+    # Report: decisions por year per class
+    if decsPerYearClass == True:
+        grouped = df.groupby([df['dat_criacao'].map(lambda x: x.year),'sig_classe_proces']).id_ta_main.nunique()
+        print grouped
+
+    # Report: decisions por justice
     if decsPerJustice == True:
         grouped = df.groupby('nom_ministro').id_ta_main.nunique()
         print grouped
