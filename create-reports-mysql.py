@@ -61,7 +61,7 @@ def main():
         if st.exportMySQL == True:
             SQL.getAll('rep_total_decs')
             ut.exportTable('rep_total_decs')
-            print 'Table rep_total_decs created exported to disk'
+            print 'Table rep_total_decs exported to disk'
 
 
     #############################
@@ -87,7 +87,7 @@ def main():
         if st.exportMySQL == True:
             SQL.getAll('rep_total_decs_justice')
             ut.exportTable('rep_total_decs_justice')
-            print 'Table rep_total_decs_justice created exported to disk'
+            print 'Table rep_total_decs_justice exported to disk'
 
     # Report: Total decisions per Class
     if totalDecsPerClass == True:
@@ -106,6 +106,10 @@ def main():
             SQL.getAll('rep_total_decs_class')
             print 'Rows: {0}'.format(st.totalRows)
             for row in st.rows: print '{0}\t{1}'.format(row['sig_classe_proces'],row['total_decs'])
+        if st.exportMySQL == True:
+            SQL.getAll('rep_total_decs_class')
+            ut.exportTable('rep_total_decs_class')
+            print 'Table rep_total_decs_class exported to disk'
 
     # Report: Total decisions per judgement type
     if totalDecsPerJudType == True:
@@ -124,6 +128,10 @@ def main():
             SQL.getAll('rep_total_decs_judtype')
             print 'Rows: {0}'.format(st.totalRows)
             for row in st.rows: print '{0}\t{1}'.format(row['tip_julgamento'],row['total_decs'])
+        if st.exportMySQL == True:
+            SQL.getAll('rep_total_decs_judtype')
+            ut.exportTable('rep_total_decs_judtype')
+            print 'Table rep_total_decs_judtype exported to disk'
 
     # Report: Total decisions per decision type
     if totalDecsPerDecType == True:
@@ -142,6 +150,10 @@ def main():
             SQL.getAll('rep_total_decs_dectype')
             print 'Rows: {0}'.format(st.totalRows)
             for row in st.rows: print '{0}\t{1}'.format(row['dsc_tipo'],row['total_decs'])
+        if st.exportMySQL == True:
+            SQL.getAll('rep_total_decs_dectype')
+            ut.exportTable('rep_total_decs_dectype')
+            print 'Table rep_total_decs_dectype exported to disk'
 
 
     #############################
@@ -164,6 +176,10 @@ def main():
             SQL.getAll('rep_total_decs_justice_class')
             print 'Rows: {0}'.format(st.totalRows)
             for row in st.rows: print '{0}\t{1}\t{2}'.format(row['nom_ministro'],row['sig_classe_proces'],row['total_decs'])
+        if st.exportMySQL == True:
+            SQL.getAll('rep_total_decs_justice_class')
+            ut.exportTable('rep_total_decs_justice_class')
+            print 'Table rep_total_decs_justice_class exported to disk'
 
     # Report: Total decisions per Class and Justice
     if totalDecsPerJustClass == True:
@@ -182,6 +198,10 @@ def main():
             SQL.getAll('rep_total_decs_class_justice')
             print 'Rows: {0}'.format(st.totalRows)
             for row in st.rows: print '{0}\t{1}\t{2}'.format(row['sig_classe_proces'],row['nom_ministro'],row['total_decs'])
+        if st.exportMySQL == True:
+            SQL.getAll('rep_total_decs_class_justice')
+            ut.exportTable('rep_total_decs_class_justice')
+            print 'Table rep_total_decs_class_justice exported to disk'
 
     # Report: Total decisions per Justice and Decision Type
     if totalDecsPerJustDecType == True:
@@ -200,6 +220,10 @@ def main():
             SQL.getAll('rep_total_decs_justice_dectype')
             print 'Rows: {0}'.format(st.totalRows)
             for row in st.rows: print '{0}\t{1}\t{2}'.format(row['nom_ministro'],row['dsc_tipo'],row['total_decs'])
+        if st.exportMySQL == True:
+            SQL.getAll('rep_total_decs_justice_dectype')
+            ut.exportTable('rep_total_decs_justice_dectype')
+            print 'Table rep_total_decs_justice_dectype exported to disk'
 
     # Report: Total decisions per Decision Type and Justice
     if totalDecsPerDecTypeJust == True:
@@ -218,6 +242,10 @@ def main():
             SQL.getAll('rep_total_decs_dectype_justice')
             print 'Rows: {0}'.format(st.totalRows)
             for row in st.rows: print '{0}\t{1}\t{2}'.format(row['dsc_tipo'],row['nom_ministro'],row['total_decs'])
+        if st.exportMySQL == True:
+            SQL.getAll('rep_total_decs_dectype_justice')
+            ut.exportTable('rep_total_decs_dectype_justice')
+            print 'Table rep_total_decs_dectype_justice exported to disk'
 
     # Report: Total decisions per Class and Decision Type
     if totalDecsPerClassDecT == True:
@@ -236,6 +264,10 @@ def main():
             SQL.getAll('rep_total_decs_class_dectype')
             print 'Rows: {0}'.format(st.totalRows)
             for row in st.rows: print '{0}\t{1}\t{2}'.format(row['sig_classe_proces'],row['dsc_tipo'],row['total_decs'])
+        if st.exportMySQL == True:
+            SQL.getAll('rep_total_decs_class_dectype')
+            ut.exportTable('rep_total_decs_class_dectype')
+            print 'Table rep_total_decs_class_dectype exported to disk'
 
     # Report: Total decisions per Decision Type and Class
     if totalDecsPerDecTClass == True:
@@ -254,6 +286,10 @@ def main():
             SQL.getAll('rep_total_decs_dectype_class')
             print 'Rows: {0}'.format(st.totalRows)
             for row in st.rows: print '{0}\t{1}\t{2}'.format(row['dsc_tipo'],row['sig_classe_proces'],row['total_decs'])
+        if st.exportMySQL == True:
+            SQL.getAll('rep_total_decs_dectype_class')
+            ut.exportTable('rep_total_decs_dectype_class')
+            print 'Table rep_total_decs_dectype_class exported to disk'
 
 
     #############################
@@ -276,6 +312,10 @@ def main():
             SQL.getAll('rep_total_decs_case_year')
             print 'Rows: {0}'.format(st.totalRows)
             for row in st.rows: print '{0}\t{1}'.format(row['case_year'],row['total_decs'])
+        if st.exportMySQL == True:
+            SQL.getAll('rep_total_decs_case_year')
+            ut.exportTable('rep_total_decs_case_year')
+            print 'Table rep_total_decs_case_year exported to disk'
 
     # Report: Total decisions per year
     if totalDecsPerYear == True:
@@ -294,6 +334,10 @@ def main():
             SQL.getAll('rep_total_decs_year')
             print 'Rows: {0}'.format(st.totalRows)
             for row in st.rows: print '{0}\t{1}'.format(row['dec_year'],row['total_decs'])
+        if st.exportMySQL == True:
+            SQL.getAll('rep_total_decs_year')
+            ut.exportTable('rep_total_decs_year')
+            print 'Table rep_total_decs_year exported to disk'
 
 
 if __name__ == "__main__":
