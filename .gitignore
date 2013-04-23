@@ -1,2 +1,4 @@
 tmp/*
+analysis/*
 *.pyc
+*.py~
