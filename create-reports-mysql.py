@@ -19,14 +19,14 @@ connectDB =             True
 totalDecs =             False
 
 # Simple specs reports
-totalDecsPerJustice =   True
-totalDecsPerClass =     True
-totalDecsPerJudType =   True
-totalDecsPerDecType =   True
+totalDecsPerJustice =   False
+totalDecsPerClass =     False
+totalDecsPerJudType =   False
+totalDecsPerDecType =   False
 
 # Complex specs reports
-totalDecsPerJustClass =     True
-totalDecsPerClassJust =     True
+totalDecsPerJustClass =     False
+totalDecsPerClassJust =     False
 totalDecsPerJustDecType =   True
 totalDecsPerDecTypeJust =   True
 totalDecsPerClassDecT =     True
@@ -175,7 +175,82 @@ def main():
             print 'Rows: {0}'.format(st.totalRows)
             for row in st.rows: print '{0}\t{1}\t{2}'.format(row['sig_classe_proces'],row['nom_ministro'],row['total_decs'])
 
+    # Report: Total decisions per Justice and Decision Type
+    if totalDecsPerJustDecType == True:
+        SQL.dropTable('rep_total_decs_justice_dectype')
+        if st.debug >= 1: print 'Creating rep_total_decs_justice_dectype'
+        sql = '''
+            create table rep_total_decs_justice_dectype
+            select nom_ministro, dsc_tipo, count(dsc_tipo) total_decs 
+            from {0}
+            group by nom_ministro, dsc_tipo
+            order by nom_ministro, dsc_tipo desc
+        '''.format(st.ta_main)
+        st.cur.execute(sql)
+        if st.debug >= 1: print 'Table rep_total_decs_justice_dectype created'
+        if st.debug >= 2:
+            SQL.getAll('rep_total_decs_justice_dectype')
+            print 'Rows: {0}'.format(st.totalRows)
+            for row in st.rows: print '{0}\t{1}\t{2}'.format(row['nom_ministro'],row['dsc_tipo'],row['total_decs'])
 
+    # Report: Total decisions per Decision Type and Justice
+    if totalDecsPerDecTypeJust == True:
+        SQL.dropTable('rep_total_decs_dectype_justice')
+        if st.debug >= 1: print 'Creating rep_total_decs_dectype_justice'
+        sql = '''
+            create table rep_total_decs_dectype_justice
+            select dsc_tipo, nom_ministro, count(nom_ministro) total_decs 
+            from {0}
+            group by dsc_tipo, nom_ministro
+            order by dsc_tipo, nom_ministro desc
+        '''.format(st.ta_main)
+        st.cur.execute(sql)
+        if st.debug >= 1: print 'Table rep_total_decs_dectype_justice created'
+        if st.debug >= 2:
+            SQL.getAll('rep_total_decs_dectype_justice')
+            print 'Rows: {0}'.format(st.totalRows)
+            for row in st.rows: print '{0}\t{1}\t{2}'.format(row['dsc_tipo'],row['nom_ministro'],row['total_decs'])
+
+    # Report: Total decisions per Class and Decision Type
+    if totalDecsPerClassDecT == True:
+        SQL.dropTable('rep_total_decs_class_dectype')
+        if st.debug >= 1: print 'Creating rep_total_decs_class_dectype'
+        sql = '''
+            create table rep_total_decs_class_dectype
+            select sig_classe_proces, dsc_tipo, count(dsc_tipo) total_decs 
+            from {0}
+            group by sig_classe_proces, dsc_tipo
+            order by sig_classe_proces, dsc_tipo desc
+        '''.format(st.ta_main)
+        st.cur.execute(sql)
+        if st.debug >= 1: print 'Table rep_total_decs_class_dectype created'
+        if st.debug >= 2:
+            SQL.getAll('rep_total_decs_class_dectype')
+            print 'Rows: {0}'.format(st.totalRows)
+            for row in st.rows: print '{0}\t{1}\t{2}'.format(row['sig_classe_proces'],row['dsc_tipo'],row['total_decs'])
+
+    # Report: Total decisions per Decision Type and Class
+    if totalDecsPerDecTClass == True:
+        SQL.dropTable('rep_total_decs_dectype_class')
+        if st.debug >= 1: print 'Creating rep_total_decs_dectype_class'
+        sql = '''
+            create table rep_total_decs_dectype_class
+            select dsc_tipo, sig_classe_proces, count(sig_classe_proces) total_decs 
+            from {0}
+            group by dsc_tipo, sig_classe_proces
+            order by dsc_tipo, sig_classe_proces desc
+        '''.format(st.ta_main)
+        st.cur.execute(sql)
+        if st.debug >= 1: print 'Table rep_total_decs_dectype_class created'
+        if st.debug >= 2:
+            SQL.getAll('rep_total_decs_dectype_class')
+            print 'Rows: {0}'.format(st.totalRows)
+            for row in st.rows: print '{0}\t{1}\t{2}'.format(row['dsc_tipo'],row['sig_classe_proces'],row['total_decs'])
+
+
+    #############################
+    ###      Time reports     ###
+    #############################
     # Report: Total decisions per case year
     if totalDecsPerCaseYear == True:
         SQL.dropTable('rep_total_decs_case_year')
