@@ -20,21 +20,21 @@ totalDecs =             True
 
 # Simple specs reports
 totalDecsPerJustice =   True
-totalDecsPerClass =     False
-totalDecsPerJudType =   False
-totalDecsPerDecType =   False
+totalDecsPerClass =     True
+totalDecsPerJudType =   True
+totalDecsPerDecType =   True
 
 # Complex specs reports
-totalDecsPerJustClass =     False
-totalDecsPerClassJust =     False
-totalDecsPerJustDecType =   False
-totalDecsPerDecTypeJust =   False
-totalDecsPerClassDecT =     False
-totalDecsPerDecTClass =     False
+totalDecsPerJustClass =     True
+totalDecsPerClassJust =     True
+totalDecsPerJustDecType =   True
+totalDecsPerDecTypeJust =   True
+totalDecsPerClassDecT =     True
+totalDecsPerDecTClass =     True
 
 # Time reports
-totalDecsPerCaseYear =  False
-totalDecsPerYear =      False
+totalDecsPerCaseYear =  True
+totalDecsPerYear =      True
 
 
 
