@@ -36,7 +36,7 @@ def main():
         st.cur.execute(sql)
         if st.debug >= 1: print 'Table rep_total_decs created'
         if st.debug >= 2:
-            SQL.getAll(rep_total_decs)
+            SQL.getAll('rep_total_decs')
             print 'Rows: {0}'.format(st.totalRows)
             for row in rows: print 'Total decs: {0}'.format(row['totalDecs'])
         

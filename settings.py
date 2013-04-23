@@ -11,7 +11,7 @@ sys.setdefaultencoding('utf-8')
 #  - Debug = 0: no debug
 #  - Debug = 1: return basic information
 #  - Debug = 2: return detailed information
-debug = 1
+debug = 2
 
 # MySQL settings
 MySQLhost =     '172.16.4.51'
