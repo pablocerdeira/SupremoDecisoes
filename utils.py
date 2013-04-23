@@ -42,7 +42,7 @@ def exportTable(filename,filetype='csv'):
     
     with open('./exports/'+filename+'.csv', 'wb') as result:
         writer = libs.csv.writer(result, dialect='excel')
-        writer.writerows(st.rows)
+        writer.writerows(st.cur)
 
 def write2disk(name,content):
     try:
