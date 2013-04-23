@@ -36,7 +36,7 @@ populateTable =     False
 addHash =           False
 convertRTF2text =   False
 createWordFreq =    False
-createViews =       True
+createViews =       False
 
 
 # Main function

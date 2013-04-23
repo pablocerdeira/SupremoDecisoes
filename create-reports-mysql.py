@@ -27,14 +27,14 @@ totalDecsPerDecType =   False
 # Complex specs reports
 totalDecsPerJustClass =     False
 totalDecsPerClassJust =     False
-totalDecsPerJustDecType =   True
-totalDecsPerDecTypeJust =   True
-totalDecsPerClassDecT =     True
-totalDecsPerDecTClass =     True
+totalDecsPerJustDecType =   False
+totalDecsPerDecTypeJust =   False
+totalDecsPerClassDecT =     False
+totalDecsPerDecTClass =     False
 
 # Time reports
-totalDecsPerCaseYear =  True
-totalDecsPerYear =      True
+totalDecsPerCaseYear =  False
+totalDecsPerYear =      False
 
 
 
