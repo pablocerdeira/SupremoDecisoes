@@ -38,7 +38,7 @@ def main():
         if st.debug >= 2:
             SQL.getAll('rep_total_decs')
             print 'Rows: {0}'.format(st.totalRows)
-            for row in rows: print 'Total decs: {0}'.format(row['totalDecs'])
+            for row in st.rows: print 'Total decs: {0}'.format(row['total_decs'])
         
 
 
