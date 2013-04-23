@@ -16,10 +16,10 @@ import MySQLtools as SQL
 # And then, change the variables below to True
 
 connectDB =             True
-totalDecs =             False
+totalDecs =             True
 
 # Simple specs reports
-totalDecsPerJustice =   False
+totalDecsPerJustice =   True
 totalDecsPerClass =     False
 totalDecsPerJudType =   False
 totalDecsPerDecType =   False
@@ -58,6 +58,10 @@ def main():
             SQL.getAll('rep_total_decs')
             print 'Rows: {0}'.format(st.totalRows)
             for row in st.rows: print 'Total decs: {0}'.format(row['total_decs'])
+        if st.exportMySQL == True:
+            SQL.getAll('rep_total_decs')
+            ut.exportTable('rep_total_decs')
+            print 'Table rep_total_decs created exported to disk'
 
 
     #############################
@@ -80,6 +84,10 @@ def main():
             SQL.getAll('rep_total_decs_justice')
             print 'Rows: {0}'.format(st.totalRows)
             for row in st.rows: print '{0}\t{1}'.format(row['nom_ministro'],row['total_decs'])
+        if st.exportMySQL == True:
+            SQL.getAll('rep_total_decs_justice')
+            ut.exportTable('rep_total_decs_justice')
+            print 'Table rep_total_decs_justice created exported to disk'
 
     # Report: Total decisions per Class
     if totalDecsPerClass == True:

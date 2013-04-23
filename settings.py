@@ -68,6 +68,9 @@ ta_words_all_idx =       ['id_monocratica','word','word_count']
 exporToDisk = False
 exportFolder = '/home/pablocerdeira/corpora/decisoes_supremo/'
 
+# Export MySQL reports to CSV
+exportMySQL = True
+
 ########################
 ##### GLOBAL VARS ######
 ########################

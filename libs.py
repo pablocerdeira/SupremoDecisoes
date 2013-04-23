@@ -28,3 +28,6 @@ import string, re
 import pandas
 import pandas.io.sql as psql
 import numpy as np
+
+# Libraries used to export data to CSV
+import csv

@@ -38,6 +38,13 @@ def wordFrequence(text):
     word_frequencies = libs.FreqDist(words)
     return word_frequencies
 
+def exportTable(filename,filetype='csv'):
+    
+    csv_writer = libs.csv.writer(open('./exports/'+filename+'.csv', "wt"))
+    csv_writer.writerow([i[0] for i in cursor.description])
+    csv_writer.writerows(st.cur)
+    del csv_writer
+
 
 def write2disk(name,content):
     try:
