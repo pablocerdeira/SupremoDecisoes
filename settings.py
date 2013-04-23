@@ -15,6 +15,7 @@ debug = 1
 
 # MySQL settings
 MySQLhost =     '172.16.4.51'
+# MySQLhost =     '127.0.0.1'
 MySQLusername = 'pablocerdeira'
 MySQLpasswd =   'pablo123'
 MySQLdb =       'fredericodba'
