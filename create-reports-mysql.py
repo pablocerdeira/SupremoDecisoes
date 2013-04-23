@@ -17,6 +17,8 @@ import MySQLtools as SQL
 
 connectDB =             True
 totalDecs =             True
+totalDecsPerCaseYear =  True
+totalDecsYear =         True
 
 
 # Main function
@@ -40,6 +42,41 @@ def main():
             print 'Rows: {0}'.format(st.totalRows)
             for row in st.rows: print 'Total decs: {0}'.format(row['total_decs'])
         
+    # Report: Total decisions per case year
+    if totalDecsPerCaseYear == True:
+        SQL.dropTable('rep_total_decs_case_year')
+        if st.debug >= 1: print 'Creating rep_total_decs_case_year'
+        sql = '''
+            create table rep_total_decs_case_year
+            select year(dat_autuacao) case_year, count(id) total_decs 
+            from {0}
+            group by year(dat_autuacao)
+            order by year(dat_autuacao)
+        '''.format(st.ta_main)
+        st.cur.execute(sql)
+        if st.debug >= 1: print 'Table rep_total_decs_case_year created'
+        if st.debug >= 2:
+            SQL.getAll('rep_total_decs_case_year')
+            print 'Rows: {0}'.format(st.totalRows)
+            print st.rows
+
+    # Report: Total decisions per year
+    if totalDecsPerYear == True:
+        SQL.dropTable('rep_total_decs_year')
+        if st.debug >= 1: print 'Creating rep_total_decs_year'
+        sql = '''
+            create table rep_total_decs_year
+            select year(dat_criacao) dec_year, count(id) total_decs 
+            from {0}
+            group by year(dat_criacao)
+            order by year(dat_criacao)
+        '''.format(st.ta_main)
+        st.cur.execute(sql)
+        if st.debug >= 1: print 'Table rep_total_decs_year created'
+        if st.debug >= 2:
+            SQL.getAll('rep_total_decs_year')
+            print 'Rows: {0}'.format(st.totalRows)
+            print st.rows
 
 
 if __name__ == "__main__":
