@@ -18,7 +18,7 @@ import MySQLtools as SQL
 connectDB =             True
 totalDecs =             True
 totalDecsPerCaseYear =  True
-totalDecsYear =         True
+totalDecsPerYear =      True
 
 
 # Main function
@@ -58,7 +58,7 @@ def main():
         if st.debug >= 2:
             SQL.getAll('rep_total_decs_case_year')
             print 'Rows: {0}'.format(st.totalRows)
-            print st.rows
+            for row in st.rows: print '{0}\t{1}'.format(row['case_year'],row['total_decs'])
 
     # Report: Total decisions per year
     if totalDecsPerYear == True:
@@ -76,7 +76,7 @@ def main():
         if st.debug >= 2:
             SQL.getAll('rep_total_decs_year')
             print 'Rows: {0}'.format(st.totalRows)
-            print st.rows
+            for row in st.rows: print '{0}\t{1}'.format(row['dec_year'],row['total_decs'])
 
 
 if __name__ == "__main__":
