@@ -40,9 +40,8 @@ def wordFrequence(text):
 
 def exportTable(filename,filetype='csv'):
     
-    with open('./exports/'+filename+'.csv', 'wb') as result:
-        writer = libs.csv.DictWriter(result, fieldnames=st.cur.keys())
-        writer.writerows([st.cur])
+    field_names = [i[0] for i in st.cur.description]
+    print field_name
 
 def write2disk(name,content):
     try:
