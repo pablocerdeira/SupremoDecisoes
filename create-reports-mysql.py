@@ -58,10 +58,10 @@ def main():
             SQL.getAll('rep_total_decs')
             print 'Rows: {0}'.format(st.totalRows)
             for row in st.rows: print 'Total decs: {0}'.format(row['total_decs'])
-        if st.exportMySQL == True:
-            SQL.getAll('rep_total_decs')
-            ut.exportTable('rep_total_decs')
-            print 'Table rep_total_decs created exported to disk'
+        #if st.exportMySQL == True:
+        #    SQL.getAll('rep_total_decs')
+        #    ut.exportTable('rep_total_decs')
+        #    print 'Table rep_total_decs created exported to disk'
 
 
     #############################
