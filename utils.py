@@ -41,7 +41,7 @@ def wordFrequence(text):
 def exportTable(filename,filetype='csv'):
     
     field_names = [i[0] for i in st.cur.description]
-    print field_names
+    print type(field_names)
 
 def write2disk(name,content):
     try:
