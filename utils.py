@@ -41,8 +41,7 @@ def wordFrequence(text):
 def exportTable(filename,filetype='csv'):
     
     csv_writer = libs.csv.writer(open('./exports/'+filename+'.csv', "wt"))
-    for row in st.rows:
-        csv_writer.write(row)
+    csv_writer.writerows(st.rows)
     del csv_writer
 
 
