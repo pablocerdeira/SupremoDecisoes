@@ -1,0 +1,68 @@
+sig_classe_proces,dsc_tipo,total_decs
+AC,Despacho,5811
+AC,"Decisão Monocrática",12
+ACO,Despacho,3668
+ACO,"Decisão Monocrática",14
+ADC,Despacho,71
+ADI,Despacho,8001
+ADI,"Decisão Monocrática",7
+ADO,Despacho,17
+ADPF,Despacho,646
+ADPF,"Decisão Monocrática",2
+AI,Despacho,711058
+AI,"Decisão Monocrática",1045
+AImp,Despacho,5
+AO,Despacho,2484
+AO,"Decisão Monocrática",17
+AOE,Despacho,59
+AP,Despacho,1615
+AP,"Decisão Monocrática",1
+AR,Despacho,4002
+AR,"Decisão Monocrática",6
+ARE,Despacho,1718
+ARE,"Decisão Monocrática",208
+ARv,Despacho,5
+AS,Despacho,68
+CC,Despacho,931
+CC,"Decisão Monocrática",2
+CR,Despacho,11225
+Cm,Despacho,7
+EI,Despacho,3
+EL,Despacho,5
+ES,Despacho,6
+EV,Despacho,5
+Ext,Despacho,3343
+Ext,"Decisão Monocrática",2
+HC,Despacho,50296
+HC,"Decisão Monocrática",124
+HD,Despacho,66
+IF,Despacho,22120
+Inq,Despacho,3478
+Inq,"Decisão Monocrática",3
+MI,Despacho,5998
+MI,"Decisão Monocrática",60
+MS,Despacho,14334
+MS,"Decisão Monocrática",23
+OACO,Despacho,2
+PETA,Despacho,16
+PETAV,Despacho,3
+PPE,Despacho,892
+PPE,"Decisão Monocrática",1
+PSV,Despacho,157
+Pet,Despacho,6578
+Pet,"Decisão Monocrática",1
+RC,Despacho,6
+RE,Despacho,504785
+RE,"Decisão Monocrática",598
+RHC,Despacho,1378
+RHC,"Decisão Monocrática",2
+RMI,Despacho,4
+RMS,Despacho,1355
+Rcl,Despacho,23572
+Rcl,"Decisão Monocrática",51
+RvC,Despacho,248
+SE,Despacho,14750
+SEC,Despacho,625
+SL,Despacho,840
+SS,Despacho,7359
+STA,Despacho,959
